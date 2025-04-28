@@ -1,0 +1,117 @@
+$columnNames: a, b, c, d, e, f, g, h;
+$startPos: 11;
+$incrementPos: 91;
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Chess Container
+.chess-container {
+  position: relative;
+  display: table;
+  margin: auto;
+  padding: 75px;
+}
+
+// Chess Board Grid
+.chess-board {
+  width: 730px;
+  height: 730px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  margin: auto;
+  opacity: 0.8;
+  position: relative;
+  border: 1px solid #000;
+
+  .chess-box {
+    &.black {
+      background-color: #000;
+    }
+
+    &.white {
+      background-color: #fff;
+    }
+  }
+}
+
+// Chess Pieces Positioning
+.chess-piece {
+  position: absolute;
+  transition: 0.8s;
+
+  @for $i from 1 through length($columnNames) {
+    $columnName: nth($columnNames, $i);
+    $leftPos: $startPos + ($incrementPos * ($i - 1));
+    $bottomStart: 6;
+    $bottomPos: $bottomStart + ($incrementPos * ($i - 1));
+
+    // Column-based positioning (a-h)
+    &.pos-#{$columnName} {
+      left: #{$leftPos}px;
+    }
+
+    // Row-based positioning (1-8)
+    &.pos-#{$i} {
+      bottom: #{$bottomPos}px;
+    }
+  }
+}
+
+.chess-piece img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+// Row Labels (1–8)
+.row-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 57px;
+  position: absolute;
+  height: calc(100% - 150px);
+
+  &.left {
+    left: 20px;
+  }
+
+  &.right {
+    right: 20px;
+  }
+
+  li {
+    list-style: none;
+    font-size: 30px;
+  }
+}
+
+// Column Labels (a–h)
+.column-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 72px;
+  position: absolute;
+  width: calc(100% - 150px);
+
+  &.top {
+    top: 20px;
+  }
+
+  &.bottom {
+    bottom: 20px;
+  }
+
+  li {
+    list-style: none;
+    font-size: 30px;
+  }
+}
